@@ -71,6 +71,34 @@ App::down(function()
 
 /*
 |--------------------------------------------------------------------------
+| HTTP Request Error Handler
+|--------------------------------------------------------------------------
+|
+| Here you can handle NotFoundHttpException request, it will catch 401 Unauthorized, 
+| 403 Forbidden, 404 Not Found and 500 Internal Server Error. Then display each custom
+| view page. Custom view page will be located in /app/views/error/*
+*/
+
+App::error(function(Exception $exception, $code)
+{
+    switch ($code)
+    {
+        case 401:
+            return Response::view('error/401', array(), 401);
+        
+        case 403:
+            return Response::view('error/403', array(), 403);
+
+        case 500:
+            return Response::view('error/500', array(), 500);
+
+        default:
+            return Response::view('error/404', array(), 404);
+    }
+});
+
+/*
+|--------------------------------------------------------------------------
 | Require The Filters File
 |--------------------------------------------------------------------------
 |

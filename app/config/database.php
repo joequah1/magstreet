@@ -54,12 +54,12 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'database',
+			'host'      => '127.0.0.1',
+			'database'  => 'mydb',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => '910117',
 			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
+			'collation' => 'utf8_bin',
 			'prefix'    => '',
 		),
 
@@ -68,7 +68,7 @@ return array(
 			'host'     => 'localhost',
 			'database' => 'database',
 			'username' => 'root',
-			'password' => '',
+			'password' => '910117',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',
