@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => 'JNYIjyxSbFr1DA9pBqJ2jjxInS4F4S6U',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -79,6 +79,14 @@ return array(
 	*/
 
 	'providers' => array(
+		'Nijibelle\Users\UsersServiceProvider',
+        'Nijibelle\Blocks\BlocksServiceProvider',
+        'Nijibelle\Friends\FriendsServiceProvider',
+        'Nijibelle\Images\ImagesServiceProvider',
+        'Nijibelle\Comments\CommentsServiceProvider',
+        'Nijibelle\Categories\CategoriesServiceProvider',
+        'Nijibelle\Shares\SharesServiceProvider',
+		'Codesleeve\Social\SocialServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
@@ -141,6 +149,15 @@ return array(
 	*/
 
 	'aliases' => array(
+		'Users'		  => 'Nijibelle\Users\Facades\Users',
+		'Blocks'	=> 'Nijibelle\Blocks\Facades\Blocks',
+        'Friends' => 'Nijibelle\Friends\Facades\Friends',
+        'Images' => 'Nijibelle\Images\Facades\Images',
+        'Comments' => 'Nijibelle\Comments\Facades\Comments',
+        'Categories' => 'Nijibelle\Categories\Facades\Categories',
+        'Shares' => 'Nijibelle\Shares\Facades\Shares',
+        
+		'Social' => 'Codesleeve\Social\Social',
 
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',

@@ -4,20 +4,6 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
-    
-    /**
-    * Validation rules for registration
-    *
-    */
-    public static $rules = array(
-        'firstname'=>'required|alpha|min:2',
-        'lastname'=>'required|alpha|min:2',
-        'email'=>'required|email|unique:users',
-        'password'=>'required|alpha_num|between:6,16|confirmed',
-        'password_confirmation'=>'required|alpha_num|between:6,16',
-        'dob'=>'required|date',
-        'gender'=>'required'
-    );
 
 	/**
 	 * The database table used by the model.

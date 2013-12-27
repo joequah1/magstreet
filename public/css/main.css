@@ -2,7 +2,8 @@ body {
    padding-top: 40px;
 }
  
-.form-signup, .form-signin {
-   width: 400px;
+.form-horizontal, .form-signup, .form-signin {
+   width: 500px;
    margin: 0 auto;
 }
+

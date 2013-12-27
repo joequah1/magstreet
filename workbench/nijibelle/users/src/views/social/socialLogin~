@@ -1,0 +1,5 @@
+{{ Form::open(array('action'=>'', 'id'=>'autosubmit')) }}
+ {{ Form::hidden('email',$email) }}
+{{ Form::close() }}
+
+<script>document.getElementById('autosubmit').submit();</script>

@@ -1,0 +1,25 @@
+{
+    "name": "nijibelle/users",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ninjoe",
+            "email": "joequah1@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*"
+    },
+    "autoload": {
+        "classmap": [
+	    "src/controllers",
+            "src/migrations",
+	    "src/models"
+        ],
+        "psr-0": {
+            "Nijibelle\\Users\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,23 @@
+{
+    "name": "nijibelle/wallpost",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ninjoe",
+            "email": "joequah1@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Nijibelle\\Wallpost\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
