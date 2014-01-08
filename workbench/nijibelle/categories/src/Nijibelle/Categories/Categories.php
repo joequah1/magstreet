@@ -55,10 +55,23 @@ class Categories {
     
     public function getRefine()
     {
+        $id = 1;
         
-        $categories = Category::all();
-       
-        return $this->view->make('categories::refine')->with('categories',$categories);
+        $first = \DB::table('categories')
+            ->select(\DB::raw(" categories.id as id, categories.name as name"))
+             ->join('blocks','blocks.category_id','=','categories.id')
+             ->where('blocks.created_by', '=', $id);
+        
+        $second = \DB::table('categories')
+            ->select(\DB::raw(" categories.id as id, categories.name as name"))
+            ->join('blocks','blocks.category_id','=','categories.id')
+            ->join('share_blocks','share_blocks.block_id','=','blocks.id')
+            ->join('shares','share_blocks.share_id','=','shares.id')
+            ->where('shares.created_by', '=', $id)
+            ->union($first)
+            ->get();
+
+        return $this->view->make('categories::refine')->with('categories',$second);
     }
     
 	/**

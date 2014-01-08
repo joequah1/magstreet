@@ -11,6 +11,8 @@
 			'name' => 'layouts.main',
 
 		),
+        
+        'description' => 'Welcome To Magstreet! Tell us more about you.',
 
 		'social' => array(
 

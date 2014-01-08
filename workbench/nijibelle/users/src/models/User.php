@@ -129,5 +129,10 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->belongsToMany('Nijibelle\Blocks\Block','block_loves','user_id','block_id');
     }
+    
+    public function profileDescription()
+    {
+        return $this->hasOne('Nijibelle\Users\UserProfile','created_by');
+    }
 
 }

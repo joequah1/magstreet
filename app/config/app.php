@@ -86,6 +86,7 @@ return array(
         'Nijibelle\Comments\CommentsServiceProvider',
         'Nijibelle\Categories\CategoriesServiceProvider',
         'Nijibelle\Shares\SharesServiceProvider',
+        'Nijibelle\Loves\LovesServiceProvider',
 		'Codesleeve\Social\SocialServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
@@ -156,6 +157,7 @@ return array(
         'Comments' => 'Nijibelle\Comments\Facades\Comments',
         'Categories' => 'Nijibelle\Categories\Facades\Categories',
         'Shares' => 'Nijibelle\Shares\Facades\Shares',
+        'Loves' => 'Nijibelle\Loves\Facades\Loves',
         
 		'Social' => 'Codesleeve\Social\Social',
 

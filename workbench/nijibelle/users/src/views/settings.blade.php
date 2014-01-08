@@ -119,4 +119,46 @@
     </div>
   </div>
     
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Description
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+
+        {{ Form::open(array('action'=>'Nijibelle\Users\ProfileController@postDescription', 'class'=>'form-signup, form-horizontal')) }}
+          
+          {{Form::hidden('userId', $user->id)}}
+          
+          <div class="form-group panel panel-info">
+              <textarea name="description" id="profile-description" class="panel-body form-control text-autosize min-height-100 width-100p"></textarea>
+              
+              <div class="panel-heading"><span id="profile-description-remain">255</span> words left</div>
+          </div>
+          
+          <div class="form-group">
+              {{ Form::submit('Save', array('class'=>'btn btn-large btn-primary btn-block'))}}
+          </div>
+          
+          {{ Form::close() }}
+          
+      </div>
+    </div>
+  </div>
+    
 </div>
+
+<script>
+    var maxchars = 255;
+$('textarea#profile-description').keyup(function () {
+    var tlength = $(this).val().length;
+    $(this).val($(this).val().substring(0, maxchars));
+    var tlength = $(this).val().length;
+    remain = maxchars - parseInt(tlength);
+    $('#profile-description-remain').text(remain);
+});
+</script>

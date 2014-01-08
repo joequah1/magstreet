@@ -25,8 +25,4 @@ class Friend extends \Eloquent {
         return $this->belongsTo('Nijibelle\Users\User','friend_user_id');
     }
     
-    public function friendImage()
-    {
-        return $this->belongsToMany('Nijibelle\Images\Image','profile_image','user_id','image_id');
-    }
 }

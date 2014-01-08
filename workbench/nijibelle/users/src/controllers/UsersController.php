@@ -42,6 +42,16 @@ class UsersController extends \BaseController {
 	{
 		$this->layout->content = \View::make('users::login');
 	}
+    
+    /**
+	* Get login form.
+	*
+	* @return Illuminate\View\View
+	*/
+	public function getLoginForm()
+	{
+		return \View::make('users::login');
+	}
 
 	/**
 	* Get register view.

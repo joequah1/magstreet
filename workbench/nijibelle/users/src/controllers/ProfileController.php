@@ -62,14 +62,34 @@ class ProfileController extends \BaseController {
     
             }else
             {
-                    return Redirect::to(Config::get('users::route').'/profile')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
+                    return Redirect::to(Config::get('users::route').'/settings')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
             }
             
         }else
         { 
-            return Redirect::to('/user/profile')->with('message','Incorrect Password.');
+            return Redirect::to('/user/settings')->with('message','Incorrect Password.');
         }
         
 
 	}
+    
+    /**
+	* Post description
+	*
+	* @return 
+	*/
+    public function postDescription()
+    {
+        $validator = Validator::make(Input::all(), UserProfile::$rules);
+        if($validator->passes())
+        {
+            $update = array('description'=>Input::get('description'));
+            $description = UserProfile::where('created_by','=',Input::get('userId'))->update($update) ;
+            
+            return Redirect::to('u/'.\Auth::user()->username)->with('message', 'Your Profile has been updated!');
+        }else
+        {
+                return Redirect::to(Config::get('users::route').'/settings')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
+        }
+    }
 }

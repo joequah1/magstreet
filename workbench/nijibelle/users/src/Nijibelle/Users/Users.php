@@ -80,6 +80,18 @@ class Users {
 	{
 		return $this->view->make('users::profile');
 	}
+    
+    /**
+	* Profile Image
+	*
+	* @return Illuminate\View\View
+	*/
+	public function getProfileImage($id)
+	{
+        $user = User::find($id);
+        
+		return $user->profileImage[0]->path;
+	}
 
 	/**
 	* Get login route.
@@ -108,7 +120,7 @@ class Users {
 	*/
 	public function getProfileRoute()
 	{
-		return \Auth::user()->username;
+		return '/u/'.\Auth::user()->username;
 	}
 
 	/**
@@ -120,6 +132,11 @@ class Users {
 	{
 		return "/auth/logout";
 	}
+    
+    public function getLoginId()
+    {
+        return \Auth::user()->id;
+    }
     
     /**
 	* Check if user is login

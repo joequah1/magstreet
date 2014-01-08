@@ -41,9 +41,37 @@ class CommentsController extends \BaseController {
             'id'  => 'commentForm'
         );
         
-        $data = array('form_options'=>$form_options, 'id'=>$id, 'from' => $from);
+        $count = $this->getCount($id, $from) - 5;
+        
+        $data = array('form_options'=>$form_options, 'id'=>$id, 'from' => $from, 'offset' => $count);
         
 		$this->layout->content = \View::make('comments::comments')->with('data',$data);	
+    }
+    
+    /*
+    * Get Previous Comments
+    */
+    public function getPreviousComments($offset, $target_id, $from)
+    {
+        $config = Config::get('comments::from');
+        
+        $table = $config[$from]['table'];
+        $where = $config[$from]['column'];
+        
+        $limit = 5;
+        
+        if($offset < 0)
+        {
+            $limit += $offset;
+            $offset = 0;
+        }
+        
+        $comments = Comment::join($table,$table.'.comment_id','=','comments.id')
+            ->where($where,'=',$target_id)->limit($limit)->offset($offset)->get();
+        
+        $data = array('previous'=>$offset, 'comments'=>$comments);
+        
+        return \View::make('comments::previousComments')->with('data',$data);	
     }
     
     /**
@@ -51,20 +79,37 @@ class CommentsController extends \BaseController {
 	*
 	* @return 
 	*/
-    public function getRealTime($id,$block,$from)
+    public function getRealTime($offset,$target_id,$from)
     {
         $config = Config::get('comments::from');
         
         $table = $config[$from]['table'];
         $where = $config[$from]['column'];
         
-        $comments = Comment::where('id','>',$id)
-            ->join($table,$table.'.comment_id','=','comments.id')
-            ->where($where,'=',$block)->get();
+        $comments = Comment::join($table,$table.'.comment_id','=','comments.id')
+            ->where($where,'=',$target_id)->limit(20)->offset($offset)->get();
         
-        $data = array('last'=>$id, 'comments'=>$comments);
+        $data = array('latest'=>$offset, 'comments'=>$comments);
         
         return \View::make('comments::realtime')->with('data',$data);	
+    }
+    
+    /**
+	* Get Comment Count
+	*
+	* @return 
+	*/
+    public function getCount($target_id, $from)
+    {
+        $config = Config::get('comments::from');
+        
+        $table = $config[$from]['table'];
+        $where = $config[$from]['column'];
+        
+        $count = Comment::join($table,$table.'.comment_id','=','comments.id')
+            ->where($where,'=',$target_id)->count();
+        
+        return $count;
     }
     
     /**

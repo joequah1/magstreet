@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Routing\Controllers\Controller;
 
 use Nijibelle\Images\Image;
+use Nijibelle\Shares\Share;
 
 class BlocksController extends \BaseController {
 
@@ -108,12 +109,18 @@ class BlocksController extends \BaseController {
     public function getBlock($id, $comment_table_from, $comment_target_id = null)
     {
         $block = Block::find($id);
-        
-        //checkingn id for commenting 
-        if($comment_table_from == "blocks")
+        $share_caption = null;
+        //checking id for commenting 
+        if(is_null($comment_target_id))
+        {
             $comment_target_id = $id;
+        }else
+        {
+            $share_caption = Share::find($comment_target_id);
+        }
+            
        
-        $data = array('block'=>$block,'comment_table_from'=>$comment_table_from, 'comment_target_id' => $comment_target_id);
+        $data = array('block'=>$block,'comment_table_from'=>$comment_table_from, 'comment_target_id' => $comment_target_id, 'share_caption'=>$share_caption);
         
         return \View::make('blocks::block')->with('data',$data);
     }
@@ -132,13 +139,23 @@ class BlocksController extends \BaseController {
 		{
             $file            = Input::file('image');
             $destinationPath = public_path().'/img/';
-            $filename        = str_random(50) . '_' . $file->getClientOriginalName();
-            $uploadSuccess   = $file->move($destinationPath, $filename);
+            
+            if(is_object($file))
+            {
+                $filename        = str_random(50) . '_' . $file->getClientOriginalName();
+                $uploadSuccess   = $file->move($destinationPath, $filename);
+                $filepath = '/img/' . $filename;
+            }else
+            {
+                $filepath = Input::get('image');
+            }
+            
+            
             
             $userId = \Auth::user()->id;
             
 			$image = new Image;
-			$image->path = '/img/' . $filename;
+			$image->path = $filepath;
             $image->created_by =  $userId;
 			$image->save();
 			
@@ -153,11 +170,11 @@ class BlocksController extends \BaseController {
 		
 			
 			
-			return Redirect::to(Config::get('blocks::route').'/')->with('Your block uploaded!');
+			return Redirect::to('/u/'.\Auth::user()->username)->with('Your block uploaded!');
 
 		}else
 		{
-			    return Redirect::to(Config::get('blocks::route').'/')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
+			    return Redirect::to('/u/'.\Auth::user()->username)->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
 		}
     }
 

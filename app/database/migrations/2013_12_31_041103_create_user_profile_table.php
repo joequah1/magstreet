@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSharesTable extends Migration {
+class CreateUserProfileTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,16 +11,13 @@ class CreateSharesTable extends Migration {
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('shares'))
+		if(!Schema::hasTable('user_profile'))
 		{
-			Schema::create('shares', function($table){
-				$value = 1;
-
+			Schema::create('user_profile', function($table){
+		
 				$table->increments('id');
-				$table->text('caption');
-				$table->integer('created_by')->unsigned();
-				$table->timestamps();
-
+                $table->string('description', 255);
+                $table->integer('created_by')->unsigned();
 				$table->foreign('created_by')->references('id')->on('users');
 			});
 		}
@@ -33,7 +30,7 @@ class CreateSharesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('shares');
+		Schema::drop('user_profile');
 	}
 
 }

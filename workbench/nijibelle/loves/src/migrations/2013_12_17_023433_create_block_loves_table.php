@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlockCommentsTable extends Migration {
+class CreateBlockLovesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,15 +11,18 @@ class CreateBlockCommentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('block_comments', function($table){
+		if(!Schema::hasTable('block_loves'))
+		{
+			Schema::create('block_loves', function($table){
 				$value = 1;
 
-				$table->integer('comment_id')->unsigned();
+				$table->integer('user_id')->unsigned();
 				$table->integer('block_id')->unsigned();
-				$table->primary(array('comment_id','block_id'));
-				$table->foreign('comment_id')->references('id')->on('comments');
+				$table->primary(array('user_id','block_id'));
+				$table->foreign('user_id')->references('id')->on('users');
 				$table->foreign('block_id')->references('id')->on('blocks');
 			});
+		}
 	}
 
 	/**
@@ -29,7 +32,7 @@ class CreateBlockCommentsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('block_comments');
+		Schema::drop('block_loves');
 	}
 
 }

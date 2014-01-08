@@ -1,4 +1,4 @@
-<?php namespace Nijibelle\Blocks;
+<?php namespace Nijibelle\Loves;
 
 class BlockLoves extends \Eloquent {
 
@@ -9,5 +9,5 @@ class BlockLoves extends \Eloquent {
 	 */
 	protected $table = 'block_loves';
 
-
+    public $timestamps = false;
 }

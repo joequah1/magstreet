@@ -1,51 +1,249 @@
 <style>
-.text-autosize
-{
-	width:400px;
-	resize:none;
-}
+    .text-autosize
+    {
+        resize:none;
+        height: 100px !important;
+    }
+    
+    #nijisteps section
+    {
+        display: none;
+        height: 400px;
+    }
+    
+    #nijisteps section#first
+    {
+        display: block;
+    }
+    
+    #nijisteps .content
+    {
+        width: 500px;
+        display: table-cell;
+        height: 260px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    
+    .input-container
+    {
+        position: relative;
+        width: 500px;
+        height: 250px;
+    }
+    
+    .input-image
+    {
+        width: 500px;
+        height: 250px;
+        opacity: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .input-file
+    {
+        width: 500px;
+        height: 250px;
+        background: #EBF4FA;
+        overflow: hidden;
+        -moz-box-shadow:    inset 0 0 10px #2B65EC;
+       -webkit-box-shadow: inset 0 0 10px #2B65EC;
+       box-shadow:         inset 0 0 10px #2B65EC;
+    }
+    
+    .input-file:hover
+    {
+    
+        -moz-box-shadow:    inset 0 0 10px #000080;
+        -webkit-box-shadow: inset 0 0 10px #000080;
+        box-shadow:         inset 0 0 10px #000080;
+    }
+    
+    .input-image-preview
+    {
+        position: absolute;
+        top: 5%;
+        left: 35%;
+        z-index: 2;
+    }
+    
+    .recommendedImages
+    {
+        width: 500px;
+        height: 250px;
+        overflow: scroll;
+    }
+    
+    .recommendedImages img
+    {
+        width: 140px;
+        height: 140px;
+    }
+
+    .modal-waiting-spinner {
+        display:    none;
+        position:   absolute;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 ) 
+                    url('http://sampsonresume.com/labs/pIkfp.gif') 
+                    50% 50% 
+                    no-repeat;
+    }
+
+    
 </style>
 
 <!-- Modal -->
 <div class="modal fade" id="addBlockModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="padding-top:100px;">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Block</h4>
-      </div>
+      
 
-        {{ Form::open($form_options) }}
-
-        <div class="form-group">
-            {{ Form::file('image', array('src'=>'#', 'id'=>'BlockImageInput', 'class'=>'','data-toggle'=>'image', 'data-target'=>'#BlockImagePreview')) }}
+        <div id="nijisteps">
+            {{ Form::open($form_options) }}
+            
+            <!-- First Step-->
+            <section id="first" class="sec">
+                
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title  class="font-nexa-bold"" id="myModalLabel">Status</h4>  
+                </div>
+                
+                <div class="content">
+                    <div class="form-group">
+                        {{ Categories::getDropDownList(); }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea name="caption" class='form-control text-autosize caption' placeholder="Enter Your Status Here..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn btn-primary nijisteps-next">next</div>
+                </div>
+                
+            </section>
+            
+            <!-- second Step-->
+            <section class="sec">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title font-nexa-bold" id="myModalLabel">How</h4>
+                </div>
+                
+                <div class="content">
+                    <div class="btn btn-lg btn-info next-upload">Upload a Photo</div>
+                
+                    <div class="btn btn-lg btn-warning next-get">Get Recommendation</div>
+                </div>
+                
+            </section>
+            
+            <!-- Upload Step-->
+            <section id="uploadphoto">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title font-nexa-bold" id="myModalLabel">Upload Your Photo</h4>
+                </div>
+                
+                <div class="form-group input-container">
+                    
+                    <div class="input-file">
+                    
+                        {{ Form::file('image', array('src'=>'#', 'id'=>'BlockImageInput', 'class'=>'input-image','data-toggle'=>'image', 'data-target'=>'#BlockImagePreview')) }}
+                        
+                       
+                    </div>
+                    
+                    <div class="input-file-overlay">
+                    
+                    </div>
+                    
+                    <img id="BlockImagePreview" alt="Image Preview" style="display: none;" class="input-image-preview" />
+                    
+                </div>
+                
+                
+            
+            
+                <div class="form-group">
+                    <img id="BlockImagePreview" alt="Image Preview" style="display: none;"  />
+                </div>
+                    
+                <div class="modal-footer">
+                    <div class="btn btn-primary nijisteps-previous">previous</div>
+                    {{ Form::submit('Upload', array('class'=>'btn btn-primary'))}}
+                </div>
+            </section>
+            
+            <!-- Get Recommendations Step -->
+            <section id="getrecommendation">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title font-nexa-bold" id="myModalLabel">Select Photo</h4>
+                </div>
+                
+                <div class="recommendedImages">
+                    <div class="modal-waiting-spinner"></div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="btn btn-primary nijisteps-previous">previous</div>
+                    {{ Form::submit('Upload', array('class'=>'btn btn-primary'))}}
+                </div>
+            </section>
+            
+    
+            {{ Form::close() }}
         </div>
-        
-        <div class="form-group">
-            <img id="BlockImagePreview" alt="Image Preview" style="display: none;"  />
-        </div>
-        
-        <div class="form-group">
-            {{ Categories::getDropDownList(); }}
-        </div>
-        
-        <div class="form-group">
-            <textarea name="caption" class='form-control text-autosize'></textarea>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            {{ Form::submit('Upload', array('class'=>'btn btn-primary'))}}
-        </div>
-
-        {{ Form::close() }}
          
       </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <script>
+    $('.nijisteps-next').on('click', function() {
+        $(this).parent().parent().next('.sec').show('slide',{direction:'left'},1500);
+        $(this).parent().parent().hide('slide',{direction:'right'},500);
+    });
+    
+    $('.nijisteps-previous').on('click', function() {
+        $(this).parent().parent().prev('.sec').show('slide',{direction:'right'},1500);
+        $(this).parent().parent().hide('slide',{direction:'left'},500);
+    });
+    
+    $('.next-upload').on('click', function() {
+        $('#uploadphoto').show('slide',{direction:'left'},1500);
+        $(this).parent().parent().hide();
+    });
+    
+    $('.next-get').on('click', function() {
+        $('.modal-waiting-spinner').show();
+        $('#getrecommendation').show('slide',{direction:'left'},1500);
+        $(this).parent().parent().hide();
+        
+        var query = $('textarea.caption').val();
+        
+        var url = '/bing/image/recommendation/'+query;
+        
+        $.get( url, function(data) {
+            $('.modal-waiting-spinner').show();
+            $('.recommendedImages').html(data);
+        }).fail(function(){
+            $('.modal').show();
+            alert('recommendations error');
+        })
+    });
+    
 
+    
+
+    
+    
     /*
     * Get the extension 
     */
@@ -101,7 +299,7 @@
 					.width(150)
 					.height(200);
 
-					$('#'+id).hide();
+					//$('#'+id).hide();
 				};
 
 				reader.readAsDataURL(input.files[0]);
@@ -115,7 +313,7 @@
 	$('[data-toggle="image"]').on('change',function(){ 
             readURL(this);
         });
-  
+
     
     /*
     * textarea autosize

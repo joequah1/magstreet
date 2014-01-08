@@ -22,6 +22,8 @@ class RegistrationController extends \BaseController {
         
 		if($validator->passes())
 		{
+            $config = $config = Config::get('users::description');
+            
             $email = Input::get('email');
             $firstname = Input::get('firstname');
             $lastname = Input::get('lastname');
@@ -41,6 +43,13 @@ class RegistrationController extends \BaseController {
 			$user->save();
 
 			$user->roles()->attach(1);
+            
+            $user->profileImage()->attach(1);
+            
+            $profile = new UserProfile;
+            $profile->description = $config;
+            $profile->created_by = $user->id;
+            $profile->save();
 		
 			return Redirect::to(Config::get('users::route').'/login')->with('message', 'Thanks for registering!');
 

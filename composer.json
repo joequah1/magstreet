@@ -3,10 +3,15 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
+    "authors": [
+        {
+            "name": "Ninjoe",
+            "email": "nijibelle@gmail.com"
+        }
+    ],
 	"require": {
 		"laravel/framework": "4.0.*",
-		"illuminate/view": "4.0.x",
-    		"codesleeve/social": "dev-master"
+		"illuminate/view": "4.0.x"
 	},
 	"autoload": {
 		"classmap": [
@@ -15,8 +20,73 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php"
-		]
+			"app/tests/TestCase.php",
+            
+            "workbench/nijibelle/users/src/controllers",
+            "workbench/nijibelle/users/src/migrations",
+            "workbench/nijibelle/users/src/models",
+            
+            
+            "workbench/nijibelle/blocks/src/controllers",
+            "workbench/nijibelle/blocks/src/migrations",
+            "workbench/nijibelle/blocks/src/models",
+        
+        
+            "workbench/nijibelle/categories/src/controllers",
+            "workbench/nijibelle/categories/src/migrations",
+            "workbench/nijibelle/categories/src/models",
+        
+        
+            "workbench/nijibelle/comments/src/controllers",
+            "workbench/nijibelle/comments/src/migrations",
+            "workbench/nijibelle/comments/src/models",
+        
+        
+            "workbench/nijibelle/friends/src/controllers",
+            "workbench/nijibelle/friends/src/migrations",
+            "workbench/nijibelle/friends/src/models",
+        
+        
+            "workbench/nijibelle/images/src/controllers",
+            "workbench/nijibelle/images/src/migrations",
+            "workbench/nijibelle/images/src/models",
+        
+        
+            "workbench/nijibelle/loves/src/controllers",
+            "workbench/nijibelle/loves/src/migrations",
+            "workbench/nijibelle/loves/src/models",
+        
+        
+            "workbench/nijibelle/shares/src/controllers",
+            "workbench/nijibelle/shares/src/migrations",
+            "workbench/nijibelle/shares/src/models"
+		],
+        "psr-0": {
+            "Nijibelle\\Users\\": [ 
+                "workbench/nijibelle/users/src/"
+            ],
+            "Nijibelle\\Blocks\\": [ 
+                "workbench/nijibelle/blocks/src/"
+            ],
+            "Nijibelle\\Categories\\": [ 
+                "workbench/nijibelle/categories/src/"
+            ],
+            "Nijibelle\\Comments\\": [ 
+                "workbench/nijibelle/comments/src/"
+            ],
+            "Nijibelle\\Friends\\": [ 
+                "workbench/nijibelle/friends/src/"
+            ],
+            "Nijibelle\\Images\\": [ 
+                "workbench/nijibelle/images/src/"
+            ],
+            "Nijibelle\\Loves\\": [ 
+                "workbench/nijibelle/loves/src/"
+            ],
+            "Nijibelle\\Shares\\": [ 
+                "workbench/nijibelle/shares/src/"
+            ]
+        }
 	},
 	"scripts": {
 		"post-install-cmd": [

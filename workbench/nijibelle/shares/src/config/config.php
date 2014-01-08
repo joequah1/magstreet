@@ -16,6 +16,8 @@
             'block' => array(
                 'function' => 'blocks',
                 'table' => 'share_blocks',
+                'column'=>'block_id',
+                'model' => 'ShareBlock',
             ),
         ),
 	);

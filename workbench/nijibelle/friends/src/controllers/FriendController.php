@@ -32,12 +32,21 @@ class FriendController extends \BaseController {
     /**
     * Add friends
     */
-    public function postAddFriend($id, $friend_id)
+    public function postAddFriend($userId, $friendId)
     {
         $friend = new Friend;
-        $friend->user_id = $id;
-        $friend->friend_user_id = $friend_id;
+        $friend->user_id = $userId;
+        $friend->friend_user_id = $friendId;
         $friend->save();     
+        
+    }
+    
+    /**
+    *
+    */
+    public function postUnFriend($userId, $friendId)
+    {
+        Friend::where('user_id','=',$userId)->where('friend_user_id','=',$friendId)->delete();
     }
     
     /**
@@ -47,6 +56,6 @@ class FriendController extends \BaseController {
     {
         $friends = Friend::where('user_id','=',$id)->get();
         
-        $this->layout->content = \View::make('friends::friendlist')->with('friends',$friends);
+        $this->layout->content = \View::make('friends::friendslist')->with('friends',$friends);
     }
 }

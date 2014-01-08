@@ -16,10 +16,7 @@
 
 Route::get('/', function()
 {
-    if(Users::adminAccess())
-        return "ok";
-    else
-        return "no";
+    return Comments::getComments(6,'blocks');
 	//return View::make('hello');
 });
 

@@ -42,8 +42,16 @@ class Shares {
 	}
     
     public function getShareButton($id_share, $image, $target_share)
-    { 
-        $data = array('target_share'=>$target_share, 'id_share'=>$id_share, 'image'=>$image);
+    {
+        $config = $this->config->get('shares::from');
+        
+        $model = 'Nijibelle\Shares\\'.$config[$target_share]['model'];
+        
+        $where = $config[$target_share]['column'];
+        
+        $count = $model::where($where,'=',$id_share)->count();
+        
+        $data = array('target_share'=>$target_share, 'id_share'=>$id_share, 'image'=>$image, 'count'=>$count);
         
         return $this->view->make('shares::sharebutton')->with('data',$data);;     
     }
